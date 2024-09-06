@@ -1,5 +1,5 @@
 // TODO: Silakan sesuaikan BASE URL dari endpoint Anda
-const BASE_URL = 'https://backend-pi-b3dkxehl4a-et.a.run.app';
+const BASE_URL = 'https://buah-api-492455045072.us-central1.run.app';
 
 const ENDPOINT = {
   predict: `${BASE_URL}/predict`,
