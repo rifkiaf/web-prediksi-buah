@@ -95,6 +95,8 @@ function previewFile(file) {
   };
 }
 
+// ... (bagian kode sebelumnya)
+
 // Send image to server
 async function uploadFile(formData) {
   try {
@@ -104,25 +106,37 @@ async function uploadFile(formData) {
 
     const response = await PredictAPI.predict(formData);
 
-    showPredictionResult(response);
+    // Periksa status respons
+    if (response.status === 'success') {
+      showPredictionResult(response.data);
+    } else {
+      showErrorMessage(response.message);
+    }
     showElement(result);
   } catch (error) {
     console.error(error);
-
-    predictionError.textContent = error.message;
+    showErrorMessage(error.message);
   } finally {
     hideElement(loadingPredict);
   }
 }
 
-// Show result to user
-function showPredictionResult(response) {
-  const { message, data } = response;
+// Fungsi untuk menampilkan pesan kesalahan
+function showErrorMessage(message) {
+  result.innerHTML = `
+    <div class="response-message">
+      <i class="fas fa-times"></i>
+      <span class="message">${message}</span>
+    </div>
+  `;
+}
 
+// Fungsi untuk menampilkan hasil prediksi
+function showPredictionResult(data) {
   result.innerHTML = `
     <div class="response-message">
       <i class="fas fa-check"></i>
-      <span class="message">${message}</span>
+      <span class="message">Prediction succes!</span>
     </div>
     <div class="prediction-result">
       <div>
